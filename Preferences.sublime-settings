@@ -1,0 +1,24 @@
+{
+	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+	"drag_text": false,
+	"font_face": "Source Code Pro Light",
+	"font_size": 16.0,
+	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+		"SVN",
+		"BracketHighlighter",
+		"GitGutter",
+		"SublimeLinter"
+	],
+	"line_padding_bottom": 2,
+	"open_files_in_new_window": false,
+	"preview_on_click": true,
+	"rulers":
+	[
+		100
+	],
+	"show_full_path": false,
+	"translate_tabs_to_spaces": true,
+	"vintage_start_in_command_mode": true
+}

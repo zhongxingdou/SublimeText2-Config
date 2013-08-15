@@ -1,0 +1,141 @@
+[
+    { 
+        "keys": ["m", "<character>"], 
+        "command": "easy_motion",
+        "args": {"select_text": false},
+        "context": [{"key": "setting.command_mode"} ]
+    },
+    // go to previous Tab and next Tab
+    { "keys": ["g","p"], "command": "prev_view", "context": [{ "key": "setting.command_mode"} ] },
+    { "keys": ["g","n"], "command": "next_view", "context": [{ "key": "setting.command_mode"} ] },  
+
+    { "keys": ["escape"], 
+    "command": "run_cmd_and_exit_insert_mode",
+     "args": {
+        "cmd": "/Users/zhonghal/Programing/script/changeInputMethod U.S.",
+        "wait": false
+    },
+      "context": [
+        { "key": "setting.command_mode", "operand": false },
+        { "key": "setting.is_widget", "operand": false },
+        { "key": "setting.vintage_ctrl_keys" },
+        { "key": "auto_complete_visible", "operator": "equal", "operand": false}
+    ]},
+
+    {
+        "keys": ["%"],
+        "command": "move_to",
+        "args": {"to": "brackets"},
+        "context": [{"key": "setting.command_mode"}]
+    },
+
+    {
+        "keys": ["T"],
+        "command": "bracket_highlighter_key",
+        "args":
+        {
+            "lines" : true,
+            "plugin":
+            {
+                "type": ["quote","bracket","tag"],
+                "command": "bracket_plugins.select_bracket",
+                "args": {"select": "auto"}
+            }
+        },
+        "context": [
+            { "key": "setting.command_mode", "operand": true },
+            { "key": "setting.is_widget", "operand": false },
+            { "key": "setting.vintage_ctrl_keys" }
+        ]
+    },
+
+    { "keys": ["g", "h"], "command": "goto_tab", "args": {"tab":"1"} ,
+        "context":
+         [
+             { "key": "setting.command_mode", "operand": true },
+             { "key": "setting.is_widget", "operand": false }
+         ]
+    },
+
+    { "keys": ["g", "l"], "command": "goto_tab", "args": {"tab":"last"},
+        "context":
+         [
+             { "key": "setting.command_mode", "operand": true },
+             { "key": "setting.is_widget", "operand": false }
+         ]
+    },
+
+    // go to Tab n
+    { "keys": ["t", "1"], "command": "goto_tab", "args": {"tab":"1"},
+        "context":
+         [
+             { "key": "setting.command_mode", "operand": true },
+             { "key": "setting.is_widget", "operand": false }
+         ]
+    },
+    { "keys": ["t", "2"], "command": "goto_tab", "args": {"tab":"2"},
+        "context":
+         [
+             { "key": "setting.command_mode", "operand": true },
+             { "key": "setting.is_widget", "operand": false }
+         ]
+    },
+    { "keys": ["t", "3"], "command": "goto_tab", "args": {"tab":"3"},
+        "context":
+         [
+             { "key": "setting.command_mode", "operand": true },
+             { "key": "setting.is_widget", "operand": false }
+         ]
+    },
+    { "keys": ["t", "4"], "command": "goto_tab", "args": {"tab":"4"},
+        "context":
+         [
+             { "key": "setting.command_mode", "operand": true },
+             { "key": "setting.is_widget", "operand": false }
+         ]
+    },
+    { "keys": ["t", "5"], "command": "goto_tab", "args": {"tab":"5"},
+        "context":
+         [
+             { "key": "setting.command_mode", "operand": true },
+             { "key": "setting.is_widget", "operand": false }
+         ]
+    },
+    { "keys": ["t", "6"], "command": "goto_tab", "args": {"tab":"6"},
+        "context":
+         [
+             { "key": "setting.command_mode", "operand": true },
+             { "key": "setting.is_widget", "operand": false }
+         ]
+    },
+    { "keys": ["t", "7"], "command": "goto_tab", "args": {"tab":"7"},
+        "context":
+         [
+             { "key": "setting.command_mode", "operand": true },
+             { "key": "setting.is_widget", "operand": false }
+         ]
+    },
+    { "keys": ["t", "8"], "command": "goto_tab", "args": {"tab":"8"},
+        "context":
+         [
+             { "key": "setting.command_mode", "operand": true },
+             { "key": "setting.is_widget", "operand": false }
+         ]
+    },
+    { "keys": ["t", "9"], "command": "goto_tab", "args": {"tab":"last"},
+        "context":
+         [
+             { "key": "setting.command_mode", "operand": true },
+             { "key": "setting.is_widget", "operand": false }
+         ]
+    },
+
+    // close current Tab
+    { "keys": ["t", "d"], "command": "close", 
+        "context":
+         [
+             { "key": "setting.command_mode", "operand": true },
+             { "key": "setting.is_widget", "operand": false }
+         ]
+     }
+]

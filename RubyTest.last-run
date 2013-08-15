@@ -1,0 +1,4 @@
+{
+	"last_test_run": "bundle exec rspec spec/login_spec.rb -l9",
+	"last_test_working_dir": "/Users/zhonghal/Work/ck1/yewu_tests"
+}

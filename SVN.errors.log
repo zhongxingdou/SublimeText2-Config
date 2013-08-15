@@ -1,0 +1,69 @@
+2012-08-31 22:31:47
+Traceback (most recent call last):
+  File "./sublimesvn/threads.py", line 18, in run_with_except_hook
+  File "./sublimesvn/threads.py", line 89, in run
+  File "./sublimesvn/commands.py", line 684, in select_branch
+RuntimeError: Must call on main thread, consider using sublime.set_timeout(function, timeout)
+2013-04-24 18:42:11
+Traceback (most recent call last):
+  File "./sublimesvn/threads.py", line 18, in run_with_except_hook
+  File "./sublimesvn/listeners.py", line 30, in run
+  File "./sublimesvn/proc.py", line 71, in get_wc_root
+  File "./sublimesvn/proc.py", line 172, in find_wc_root
+ProcessError: svn: The path '.' appears to be part of a Subversion 1.7 or greater
+working copy.  Please upgrade your Subversion client to use this
+working copy.
+2013-04-24 18:42:30
+Traceback (most recent call last):
+  File "./sublimesvn/threads.py", line 18, in run_with_except_hook
+  File "./sublimesvn/listeners.py", line 30, in run
+  File "./sublimesvn/proc.py", line 71, in get_wc_root
+  File "./sublimesvn/proc.py", line 172, in find_wc_root
+ProcessError: svn: The path '.' appears to be part of a Subversion 1.7 or greater
+working copy.  Please upgrade your Subversion client to use this
+working copy.
+2013-04-24 18:42:38
+Traceback (most recent call last):
+  File "./sublimesvn/threads.py", line 18, in run_with_except_hook
+  File "./sublimesvn/listeners.py", line 30, in run
+  File "./sublimesvn/proc.py", line 71, in get_wc_root
+  File "./sublimesvn/proc.py", line 172, in find_wc_root
+ProcessError: svn: The path '.' appears to be part of a Subversion 1.7 or greater
+working copy.  Please upgrade your Subversion client to use this
+working copy.
+2013-04-24 18:42:41
+Traceback (most recent call last):
+  File "./sublimesvn/threads.py", line 18, in run_with_except_hook
+  File "./sublimesvn/listeners.py", line 30, in run
+  File "./sublimesvn/proc.py", line 71, in get_wc_root
+  File "./sublimesvn/proc.py", line 172, in find_wc_root
+ProcessError: svn: The path '.' appears to be part of a Subversion 1.7 or greater
+working copy.  Please upgrade your Subversion client to use this
+working copy.
+2013-04-24 18:42:45
+Traceback (most recent call last):
+  File "./sublimesvn/threads.py", line 18, in run_with_except_hook
+  File "./sublimesvn/listeners.py", line 30, in run
+  File "./sublimesvn/proc.py", line 71, in get_wc_root
+  File "./sublimesvn/proc.py", line 172, in find_wc_root
+ProcessError: svn: The path '.' appears to be part of a Subversion 1.7 or greater
+working copy.  Please upgrade your Subversion client to use this
+working copy.
+2013-04-24 18:42:47
+Traceback (most recent call last):
+  File "./sublimesvn/threads.py", line 18, in run_with_except_hook
+  File "./sublimesvn/listeners.py", line 30, in run
+  File "./sublimesvn/proc.py", line 71, in get_wc_root
+  File "./sublimesvn/proc.py", line 172, in find_wc_root
+ProcessError: svn: The path '.' appears to be part of a Subversion 1.7 or greater
+working copy.  Please upgrade your Subversion client to use this
+working copy.
+2013-04-24 18:42:52
+Traceback (most recent call last):
+  File "./sublimesvn/threads.py", line 18, in run_with_except_hook
+  File "./sublimesvn/listeners.py", line 30, in run
+  File "./sublimesvn/proc.py", line 71, in get_wc_root
+  File "./sublimesvn/proc.py", line 172, in find_wc_root
+ProcessError: svn: The path '.' appears to be part of a Subversion 1.7 or greater
+working copy.  Please upgrade your Subversion client to use this
+working copy.
