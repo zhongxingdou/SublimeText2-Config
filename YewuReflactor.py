@@ -18,7 +18,7 @@ class ReflactYewuPage(sublime_plugin.TextCommand):
              "new_tag_attr": {"ID":"Header1", "ContentPlaceHolderID":"HeadPlace", "runat":"server"}})
 
         #remove tag which are presented in master page
-        v.run_command("delete_tag", {"tag": "title"})
+        # v.run_command("delete_tag", {"tag": "title"})
         v.run_command("delete_tag", {"tag": "link", "conditions": {"href": ".*/admin.css"}})
         v.run_command("delete_tag", {"tag": "link", "conditions": {"href": ".*/jq_ui.custom.css"}})
 
