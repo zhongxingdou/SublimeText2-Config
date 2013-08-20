@@ -1,3 +1,4 @@
 [
-    { "caption": "Reflact-Store-1", "command": "reflact_yewu_page" }
+    { "caption": "Reflact-Store-1", "command": "reflact_yewu_page" },
+    { "caption": "Reflact-Store-ServerControl", "command": "reflact_server_control" }
 ]

@@ -1,5 +1,7 @@
 # encoding: utf-8
 import sublime, sublime_plugin
+import HtmlReflactor
+import re
 
 class ReflactYewuPage(sublime_plugin.TextCommand):
     def run(self, edit):
@@ -40,3 +42,36 @@ class ReflactYewuPage(sublime_plugin.TextCommand):
         v.run_command("replace_tag", {"tag": "body", "new_tag": "asp:Content",
              "new_tag_attr": {"ID":"Content1", "ContentPlaceHolderID":"ContentPlace", "runat":"server"}})
 
+class ReflactServerControl(sublime_plugin.TextCommand):
+    def run(self, edit):
+        v = self.view
+
+        text_input_regions = HtmlReflactor.find_tags_with_attribute(v, "input", {"runat": "server", "type": "(?:text|hidden)"})
+        offset = 0
+        for region in text_input_regions:
+            tag_region = HtmlReflactor.offset_region(region, offset)
+            tag = v.substr(tag_region)
+            print tag
+            matches = re.search(r"id=([\"'])(?P<id>.*?)\1", tag)
+            if matches:
+                id_attr = matches.group("id")
+
+                model_field = re.search(r"^(?P<model>.*)_(?P<field>.*?)$", id_attr)
+                if not model_field:
+                    continue
+
+                model = model_field.group("model")
+                field = model_field.group("field")
+                value = "Curr" + model.replace("_", "") + "." + field
+
+
+                runat_region = v.find("runat=([\"'])server\\1", tag_region.a, sublime.IGNORECASE)
+                if runat_region:
+                    v.erase(edit, runat_region)
+                    offset -= runat_region.b - runat_region.a
+
+                content = ' name="%s" value="<%%= %s %%>"' % (field, value)
+                v.insert(edit, tag_region.a + 6, content)
+                offset += len(content)
+                
+                # v.run_command("remove_attribute", {"tag": "input", "attribute": "runat", "value": "server"})
