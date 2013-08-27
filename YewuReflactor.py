@@ -3,7 +3,7 @@ import sublime, sublime_plugin
 import HtmlReflactor
 import re
 
-class ReflactYewuPage(sublime_plugin.TextCommand):
+class ReflactUseMasterPage(sublime_plugin.TextCommand):
     def run(self, edit):
         v = self.view
 
@@ -42,11 +42,31 @@ class ReflactYewuPage(sublime_plugin.TextCommand):
         v.run_command("replace_tag", {"tag": "body", "new_tag": "asp:Content",
              "new_tag_attr": {"ID":"Content1", "ContentPlaceHolderID":"ContentPlace", "runat":"server"}})
 
-class ReflactServerControl(sublime_plugin.TextCommand):
+
+class ReflactInputServerControl(sublime_plugin.TextCommand):
     def run(self, edit):
         v = self.view
 
-        text_input_regions = HtmlReflactor.find_tags_with_attribute(v, "input", {"runat": "server", "type": "(?:text|hidden)"})
+        #repace ID, CssClass
+        tb_tag = "asp:(TextBox|HiddenField)"
+        tb_regions = HtmlReflactor.find_tags_with_attribute(v, tb_tag)
+        offset = 0
+        for region in tb_regions:
+            tb_region = HtmlReflactor.offset_region(region, offset)
+            tb_tag = v.substr(tb_region)
+            tb_tag = HtmlReflactor.replace_attr_name(tb_tag, {"ID": "id", "CssClass": "class"})
+
+            v.replace(edit, tb_region, tb_tag)
+            offset += len(tb_tag) - tb_region.size() 
+
+
+        # replace TagName
+        HtmlReflactor.replace_text(v, "<asp:TextBox ", '<input type="text" ')
+        HtmlReflactor.erase_text(v, "</asp:TextBox>")
+        HtmlReflactor.replace_text(v, "<asp:HiddenField ", '<input type="hidden" ')
+
+        # text_input_regions = HtmlReflactor.find_tags_with_attribute(v, "input", {"runat": "server", "type": "(?:text|hidden)"})
+        text_input_regions = HtmlReflactor.find_tags_with_attribute(v, "input", {"runat": "server"})
         offset = 0
         for region in text_input_regions:
             tag_region = HtmlReflactor.offset_region(region, offset)
@@ -57,21 +77,45 @@ class ReflactServerControl(sublime_plugin.TextCommand):
                 id_attr = matches.group("id")
 
                 model_field = re.search(r"^(?P<model>.*)_(?P<field>.*?)$", id_attr)
-                if not model_field:
-                    continue
+                if model_field:
+                    model = model_field.group("model")
+                    field = model_field.group("field")
+                else:
+                    model = "Model"
+                    field = id_attr
 
-                model = model_field.group("model")
-                field = model_field.group("field")
                 value = "Curr" + model.replace("_", "") + "." + field
-
-
                 runat_region = v.find("runat=([\"'])server\\1", tag_region.a, sublime.IGNORECASE)
                 if runat_region:
                     v.erase(edit, runat_region)
                     offset -= runat_region.b - runat_region.a
 
-                content = ' name="%s" value="<%%= %s %%>"' % (field, value)
+                content = ' name="%s" value="<%%= %s %%>"' % (id_attr, value)
                 v.insert(edit, tag_region.a + 6, content)
                 offset += len(content)
+
                 
                 # v.run_command("remove_attribute", {"tag": "input", "attribute": "runat", "value": "server"})
+class ReflactButtonServerControl(sublime_plugin.TextCommand):
+    def run(self, edit):
+        v = self.view
+        btn_tag = "asp:Button"
+
+        # v.run_command("remove_attribute", {"tag": btn_tag, "attribute": "runat"})
+
+        btn_regions = HtmlReflactor.find_tags_with_attribute(v, btn_tag)
+
+        offset = 0
+        for region in btn_regions:
+            btn_region = HtmlReflactor.offset_region(region, offset)
+            btn_tag = v.substr(btn_region)
+
+            btn_tag = btn_tag.replace("asp:Button", 'input type="submit" name="action"')
+            btn_tag = HtmlReflactor.remove_attribute(btn_tag, "onclick")
+            btn_tag = HtmlReflactor.remove_attribute(btn_tag, "runat")
+            btn_tag = HtmlReflactor.replace_attr_name(btn_tag, {"ID": "id", "CssClass": "class", "OnClientClick": "onclick", "Text": "value"})
+            
+            v.replace(edit, btn_region, btn_tag)
+
+            offset += len(btn_tag) - (btn_region.b - btn_region.a)
+

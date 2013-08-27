@@ -18,7 +18,7 @@
 	[
 		100
 	],
-	"show_full_path": false,
+	"show_full_path": true,
 	"translate_tabs_to_spaces": true,
 	"vintage_start_in_command_mode": true
 }

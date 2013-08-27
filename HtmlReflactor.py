@@ -4,6 +4,37 @@ import re
 
 #注意 sublime的view.find_all(pattern, ...) pattern应该是perl正则式，而不是python的，所以不支持python的特殊
 #写法，如?P<GroupName> ?P=GroupName，可用\1\2代替
+def erase_text(view, pattern):
+    return replace_text(view, pattern)
+
+def replace_text(view, pattern, replace=""):
+    edit = view.begin_edit()
+    regions = view.find_all(pattern)
+    offset = 0
+    for region in regions:
+        real_region = offset_region(region, offset)
+        view.replace(edit, real_region, replace)
+        offset += len(replace) - real_region.size()
+    view.end_edit(edit)
+
+def get_attributes(tag, attr_names):
+    attributes = {}
+    for attr in attr_names:
+        matches = re.search(attr + r"=([\"'])(?P<value>.*?)\1", tag)
+        if matches:
+            value = matches.group("value")
+            if value:
+                attributes[attr] = value
+    return attributes
+
+def replace_attr_name(tag, attr_names):
+    for attr_old, attr_new in attr_names.items():
+       tag = tag.replace(attr_old + "=", attr_new + "=")
+    return tag
+
+def remove_attribute(tag, attr):
+    return re.compile(attr + r"=([\"']).*?\1").sub("", tag)
+
 
 def is_self_closing_tag(tag):
     return tag.lower() in ["area", "base", "basefont", "br", "hr", "input", "img", "link", "meta"]
@@ -27,7 +58,7 @@ def find_end_region(view, tag, from_position):
             sub_e_region = find_end_region(view, tag, s_region.b)
             return find_end_region(view, tag, sub_e_region.b)
 
-def find_tags_with_attribute(view, tag, conditions):
+def find_tags_with_attribute(view, tag, conditions=None):
     if conditions:
         # regexp = "<" + tag + " [^>]*"
         regexp = "<" + tag + " "
@@ -35,8 +66,7 @@ def find_tags_with_attribute(view, tag, conditions):
         i = 1
         for attr, value in conditions.items():
             if value != None:
-                regexp += "(?=.*" + attr + "=(['" + '"]?)' + value + "\\" + str(i) + ")"
-                # regexp += "(?=.*" + attr + "=(?P<q" + str(i) + ">['" + '"]?)' + value + "(?P=q" + str(i) + "))"
+                regexp += "(?=.*" + attr + "=(?<q"+ str(i) + r">['\"])" + value + r"\g{q" + str(i) + "}" + ")"
                 i += 1
             else:
                 regexp += "(?!" + attr + "=)"           

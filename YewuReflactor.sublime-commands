@@ -1,4 +1,5 @@
 [
-    { "caption": "Reflact-Store-1", "command": "reflact_yewu_page" },
-    { "caption": "Reflact-Store-ServerControl", "command": "reflact_server_control" }
+    { "caption": "Reflact-Use-MasterPage", "command": "reflact_use_master_page" },
+    { "caption": "Reflact-Input-ServerControl", "command": "reflact_input_server_control" },
+    { "caption": "Reflact-Button-ServerControl", "command": "reflact_button_server_control" }
 ]
